@@ -1,0 +1,43 @@
+package kr.pren.dao;
+
+import java.sql.SQLException;
+import java.util.Map;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+
+import kr.pren.util.IbatisUtil;
+import kr.pren.vo.User;
+
+public class UserDao {
+	private static UserDao instance = new UserDao();
+	private UserDao() {}
+	public static  UserDao getInstance() {
+		return instance;
+	}
+	
+	private SqlMapClient sqlmap = IbatisUtil.getSqlmap();
+	
+	public void insertUser(User user) throws Exception {
+		sqlmap.insert("users.insertUser", user);
+	}
+	public User getUserById(String userId) throws Exception{
+		return (User) sqlmap.queryForObject("users.getUserById", userId);
+	}
+
+	public User findUserById(User user) throws Exception{
+		return (User) sqlmap.queryForObject("users.findUserById",user);
+	}
+	
+	public User getUserByNo(int userNo) throws SQLException {
+		return (User) sqlmap.queryForObject("users.getUserByNo",userNo);
+	}
+	public User findUserByPwd(User user) throws Exception{
+		return (User) sqlmap.queryForObject("users.findUserByPwd",user);
+	}  
+	public void updatepwd (Map<String, Object> updatepwd) throws Exception{
+		sqlmap.update("users.updatepwd",updatepwd);
+	}
+	public void dropOutUser (Map<String, Object> dropEmail) throws Exception{
+		sqlmap.update("users.dropOutUser",dropEmail);
+	}
+}

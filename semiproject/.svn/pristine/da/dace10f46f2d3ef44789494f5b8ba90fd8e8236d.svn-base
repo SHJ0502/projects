@@ -1,0 +1,44 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="kr.pren.util.NumberUtils"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+   
+  <%
+  boolean isAleadyLike = false;
+  SimpleDateFormat  format = new SimpleDateFormat("yyyy-MM-dd / HH:mm");
+  %>
+<div class="col-sm-3 thumbnail" style="padding-bottom: 20px; width: 217px; margin: 10px 10px;">
+	 			<a href="../main/product_display.jsp?productNo=<%=item.getNo() %>" style="text-decoration: none; cursor: pointer;">
+	 			<div id="mall-section">
+	       			<div class="mall-item">
+	           			<img src="../../resources/images/item_logo/<%=item.getLogoName() !=null ? item.getLogoName() : "productImg.jpg"%>" style="width: 200px; height: 200px; width: 100%">
+	           			<div>
+	           				<div style="margin-bottom: 10px; margin-top:10px;">
+		          				<img class="img-circle" src="../../resources/images/user_profile/<%=user.getProfileImgName() !=null ? user.getProfileImgName() : "person.jpg" %>" style="width: 27px; height: 27px; border: 1px solid rgb(221, 221, 221); border: radius: 100%; margin-right: 5px; display: inline-block; vertical-align: middle;">
+		          				<strong><%=user.getNickName() %></strong>
+	           				</div>
+	           				<div class="row">
+		          				<div class="title" style="padding: 0px 15px; height: 60px;">
+		          					<p><%=item.getContent() %></p>	
+		          					<span style="background-color: rgb(213, 213, 213); color: rgb(107, 107, 107); border-radius: 3px; font-size: 12px; padding: 2px 9px; float: right;"><%=item.getIsSolo().equals("y") ? "개인" : "기업" %></span>
+		          				</div>
+		          				<div style="margin-top: 15px; margin-bottom: 10px;">
+		          					<span style="padding-left: 15px; relative; font-size: 11px; color: rgb(79, 172, 254);">평가점수</span>
+		          				</div>
+	           				</div>
+	           			</div>
+	          			<div style="margin-top: 5px; padding: 7px 5px; border-top: 1px solid rgb(229, 229, 229); position: relative;">
+	          				<a href="http://localhost/semiproject/Project_JSP/myfren/steam_list.jsp?productNo=<%=item.getNo() %>" class="btn btn-default <%=isAleadyLike ? "disabled" : "" %>" style="border: none;">
+	          					<span class="glyphicon glyphicon-heart red"></span>
+	          				</a>
+	          				<span style="float: right">
+	          					<span style="font-size: 18px; font-weight: bold;"><%=NumberUtils.numberWithComma(item.getPrice()) %></span> 원
+	          				</span>
+	          			</div>
+	          			<div style="float: right; display: inline-block;">
+	          				<span style="float: right; font-size: 11px;"><%=format.format(item.getUploadDate()) %></span>
+	          			</div>
+	      			</div>
+	  			</div>
+	  			</a>
+	 		</div>

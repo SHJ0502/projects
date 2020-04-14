@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  	<title>test04_val.html</title>
+  	<meta charset="utf-8">
+  	<script src="js/jquery-3.4.1.min.js"></script>
+  	<script type="text/javascript">
+  		$(document).ready(function() {
+			$("#same").click(function() {
+				var checked=$("#same").prop("checked");
+				if(checked){
+					$("#catchName").val($("#name").val());
+					$("#catchAddress").val($("#address").val());
+				} else {
+					$("#catchName").val("");
+					$("#catchAddress").val("");
+				}
+			});
+		});
+  	</script>
+</head>
+<body>
+ 회원이름<input type="text" id="name"><br>
+ 회원주소<input type="text" id="address"><br>
+ 위와동일<input type="checkbox" id="same"><br>
+ 받는사람<input type="text" id="catchName"><br>
+ 받는주소<input type="text" id="catchAddress">
+</body>
+</html>

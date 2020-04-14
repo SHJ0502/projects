@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="board">
+	<insert id="insertBoard" parameterClass="Board">
+		insert into free_boards
+			(BOARD_NO, BOARD_TITLE, BOARD_WRITER, BOARD_PASSWORD, BOARD_CONTENTS, BOARD_LIKES, TYPE_NO, BOARD_CREAT_DATE)
+		values
+			(FREE_BOARD_SEQ.nextval, #title#, #writer#, #password#, #contents#, #likes#, #type.no#, sysdate)
+	</insert>
+
+	<select id="getAllBoards" resultClass="Board">
+		select
+			A.BOARD_NO					as no,
+			A.BOARD_TITLE				as title,
+			A.BOARD_WRITER				as writer,
+			A.BOARD_PASSWORD			as password,
+			A.BOARD_CONTENTS			as contents,
+			A.BOARD_LIKES				as likes,
+			A.TYPE_NO					as "type.no",
+			B.TYPE_NAME					as "type.name",
+			A.BOARD_CREAT_DATE			as createDate
+		from
+			free_boards A, FREE_BOARD_TYPES B
+		where
+			A.type_no = B.type_no
+	</select>
+	
+	<select id="getAllBoardType" resultClass="BoardType">
+		select
+			type_no  as no,
+			type_name as name
+		from
+			free_board_types
+	</select>
+	
+	<select id="getBoardByNo" parameterClass="int" resultClass="Board">
+		select
+			A.BOARD_NO					as no,
+			A.BOARD_TITLE				as title,
+			A.BOARD_WRITER				as writer,
+			A.BOARD_PASSWORD			as password,
+			A.BOARD_CONTENTS			as contents,
+			A.BOARD_LIKES				as likes,
+			A.TYPE_NO					as "type.no",
+			B.TYPE_NAME					as "type.name",
+			A.BOARD_CREAT_DATE			as createDate
+		from
+			free_boards A, FREE_BOARD_TYPES B
+		where
+			A.type_no = B.type_no
+		and
+			A.BOARD_no = #value#
+	</select>
+	
+	
+	<!-- 가장 최근 게시글 3개를 조회하기 -->
+	<select id="getRecentBoards" resultClass="Board">
+	 	select					
+	 		BOARD_NO				as no,
+			BOARD_TITLE				as title,
+			BOARD_WRITER			as writer,
+			BOARD_PASSWORD			as password,
+			BOARD_CONTENTS			as contents,
+			BOARD_LIKES				as likes,
+			TYPE_NO					as "type.no",
+			TYPE_NAME				as "type.name",
+			BOARD_CREAT_DATE		as createDate
+		from
+			(select
+					A.BOARD_NO,					
+					A.BOARD_TITLE,				
+					A.BOARD_WRITER,				
+					A.BOARD_PASSWORD,			
+					A.BOARD_CONTENTS,			
+					A.BOARD_LIKES,				
+					A.TYPE_NO,					
+					B.TYPE_NAME,					
+					A.BOARD_CREAT_DATE		
+			from
+				free_boards A, FREE_BOARD_TYPES B
+			where
+				A.type_no = B.type_no
+			order by
+				board_no desc)
+			
+			where
+			 	rownum &lt;= 5
+	</select>
+	
+	<delete id="deleteBoard" parameterClass="int">
+		delete from
+			free_boards
+		where
+			board_no = #value#
+	</delete>
+	
+	<update id="upadateBoard" parameterClass="Board">
+		update
+			free_boards
+		set
+			board_title = #title#,
+			board_writer = #writer#,
+			board_password = #password#,
+			board_contents = #contents#,
+			board_likes = #likes#,
+			type_no = #type.no#
+		where
+			board_no = #no#
+	</update>
+	
+	<select id="getBoardByLikes" resultClass="Board">
+		select					
+	 		BOARD_NO				as no,
+			BOARD_TITLE				as title,
+			BOARD_WRITER			as writer,
+			BOARD_PASSWORD			as password,
+			BOARD_CONTENTS			as contents,
+			BOARD_LIKES				as likes,
+			TYPE_NO					as "type.no",
+			TYPE_NAME				as "type.name",
+			BOARD_CREAT_DATE		as createDate
+		from
+			(select
+					A.BOARD_NO,					
+					A.BOARD_TITLE,				
+					A.BOARD_WRITER,				
+					A.BOARD_PASSWORD,			
+					A.BOARD_CONTENTS,			
+					A.BOARD_LIKES,				
+					A.TYPE_NO,					
+					B.TYPE_NAME,					
+					A.BOARD_CREAT_DATE		
+			from
+				free_boards A, FREE_BOARD_TYPES B
+			where
+				A.type_no = B.type_no
+			order by
+				board_likes desc)
+			
+			where
+			 	rownum &lt;= 5
+	</select>
+	
+</sqlMap>
+
+

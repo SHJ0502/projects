@@ -1,0 +1,25 @@
+<%@page import="java.util.Map"%>
+<%@page import="kr.pren.vo.Order"%>
+<%@page import="java.util.List"%>
+<%@page import="kr.pren.dao.OrderDao"%>
+<%@page import="java.util.Date"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<%
+	String selectState = request.getParameter("selectState");
+	String startDate = request.getParameter("startDate"); 
+	String endDate = request.getParameter("endDate"); 
+	String selectDisplayNum = request.getParameter("selectDisplayNum"); 
+	
+	OrderDao orderDao = OrderDao.getInstance();
+	Map<String,Object> map = new HashMap<>();
+	map.put("selectState", selectState);
+	map.put("startDate", startDate);
+	map.put("endDate", endDate);
+	map.put("selectDisplayNum", selectDisplayNum);
+	orderDao.get
+	
+	
+	
+%>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="hr">
+
+	<select id="getAllDepts" resultClass="Dept">
+		select
+			department_id		id,
+			department_name		name
+		from
+			departments
+		order by
+			department_id asc
+	</select>
+	
+	<select id="getEmployeesByDeptId" parameterClass="int" resultClass="Emp">
+		select
+			A.EMPLOYEE_ID		no,
+			A.HIRE_DATE			hireDate,
+			A.FIRST_NAME		firstName,
+			A.LAST_NAME			lastName,
+			B.DEPARTMENT_NAME	"dept.name"
+		from
+			employees A, departments B
+		where
+			A.department_id = B.department_id
+		and
+			A.department_id = #value#
+		order by
+			A.employee_id asc
+	</select>
+	
+	<select id="getEmployeeById" parameterClass="int" resultClass="Emp">
+		select
+			A.EMPLOYEE_ID		no,
+			A.HIRE_DATE			hireDate,
+			A.FIRST_NAME		firstName,
+			A.LAST_NAME			lastName,
+			B.DEPARTMENT_NAME	"dept.name",
+			A.job_id			job,
+			A.phone_number		tel,
+			A.email				email,
+			A.salary			salary,
+			A.commission_pct	comm
+		from
+			employees A, departments B
+		where
+			A.department_id = B.department_id
+		and
+			A.employee_id = #value#
+	</select>
+	
+	<select id="getManagerById" parameterClass="int" resultClass="Emp">
+		select
+			A.EMPLOYEE_ID		no,
+			A.HIRE_DATE			hireDate,
+			A.FIRST_NAME		firstName,
+			A.LAST_NAME			lastName,
+			B.DEPARTMENT_NAME	"dept.name",
+			A.job_id			job,
+			A.phone_number		tel,
+			A.email				email,
+			A.salary			salary,
+			A.commission_pct	comm
+		from
+			employees A, departments B
+		where
+			A.department_id = B.department_id
+		and
+			A.employee_id = (select
+								manager_id
+							from
+								employees
+							where
+								employee_id = #value#)
+							
+	</select>
+	
+	<select id="getBabyById" parameterClass="int" resultClass="Emp">
+		select
+			A.EMPLOYEE_ID		no,
+			A.HIRE_DATE			hireDate,
+			A.FIRST_NAME		firstName,
+			A.LAST_NAME			lastName,
+			B.DEPARTMENT_NAME	"dept.name",
+			A.job_id			job,
+			A.phone_number		tel,
+			A.email				email,
+			A.salary			salary,
+			A.commission_pct	comm
+		from
+			employees A, departments B
+		where
+			A.department_id = B.department_id
+		and
+			A.manager_id = #value#
+				
+		
+	</select>
+	
+</sqlMap>

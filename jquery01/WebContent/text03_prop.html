@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  	<title>text03_prop.html</title>
+  	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<script src="js/jquery-3.4.1.min.js"></script>
+  	<script type="text/javascript">
+  		
+  		$(document).ready(function() {
+			$("#text").prop("disabled", true); // 비활성화 하기
+  			$("#check1").click(function() {
+				//var checked=$("#check1").prop("checked");
+				var checked=$(this).prop("checked");
+				if(checked) {
+					$("#text").prop("disabled", false); // 비활성화 하기
+					$("#text").focus();	//포커스 주기
+				} else {
+					$("#text").prop("disabled", true); // 비활성화 하기
+				}
+			});
+			$("#btn1").click(function() {
+				// value=$("#text").prop("value");
+				var value=$("#text").val(); // value 속성값 꺼내오기
+				alert("입력된 사항:" + value);
+			});
+		});
+  	</script>
+</head>
+<body>
+기타사항 <input type="checkbox" value="기타" id="check1">
+<input type="text" id="text" size="50">
+<input type="button" id="btn1" value="확인">
+</body>
+</html>

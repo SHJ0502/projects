@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="orders">
+	<!--특정 유저가 구입한 상품 조회 -->
+	<select id="getAllOrderByUserNo" parameterClass="int" resultClass="Order">
+		select
+			order_no 			 as no,
+			user_no 			 as userNo,
+			item_no    			 as itemNo,
+			order_state 		 as state,
+			order_sheet 		 as sheet,
+			order_create_date 	 as createDate,
+			order_compleate_date as compleateDate
+			
+		from
+			order_tables
+		where 
+			user_no = #value#
+	</select>
+</sqlMap>

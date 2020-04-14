@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="orders">
+	<insert id="insertOrder" parameterClass="Order">
+		insert into bookstore_orders
+		(order_no, user_no)
+		values
+		(#no#, #user.no#)
+	</insert>
+	
+	<insert id="insertOrderItem" parameterClass="OrderItem">
+		insert into bookstore_order_items
+		(ORDER_NO, BOOK_NO, ORDER_AMOUNT,ORDER_PRICE)
+		values
+		(#orderNo#, #book.no#, #amount#, #orderPrice#)
+	</insert>
+	
+	<select id="getOrderNo" resultClass="int">
+		select 
+			BOOKSTORE_ORDER_SEQ.nextval
+		from 
+			dual
+		
+	</select>
+	
+	<select id="getOrderByNo" parameterClass="int" resultClass="Order">
+		select
+			ORDER_NO				as no,
+			USER_NO					as "user.no",
+			ORDER_STATUS			as status,
+			ORDER_CREATE_DATE		as createDate
+		from
+			bookstore_orders
+		where
+			order_no = #no#
+	</select>
+	
+	<select id="getOrderList" parameterClass="int" resultClass="Order">
+		select
+			ORDER_NO				as no,
+			USER_NO					as "user.no",
+			ORDER_STATUS			as status,
+			ORDER_CREATE_DATE		as createDate
+		from
+			bookstore_orders
+		where
+			user_no = #no#
+	</select>
+	
+	<select id="getOrderItemByOrderNo" parameterClass="int" resultClass="OrderItem">
+		select
+			A.ORDER_NO				as	no,
+			A.BOOK_NO				as	"Book.no",
+			A.ORDER_AMOUNT			as	amount,
+			A.ORDER_PRICE			as 	price,
+			B.BOOK_TITLE			as 	"book.title",
+			B.BOOK_WRITER			as	"book.writer",
+			B.BOOK_PRICE			as	"book.price",
+			B.BOOK_DISCOUNT_PRICE	as	"book.discountPrice",
+			B.BOOK_SOLDOUT			as	"book.soldout",
+			B.BOOK_CREATE_DATE		as	"book.createDate",
+			B.BOOK_STOCK			as	"book.stock"
+		from
+			bookstore_order_items A, bookstore_books B
+		where
+			A.book_no = B.book_no
+		and
+			A.order_no = #value#
+	</select>
+
+</sqlMap>

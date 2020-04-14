@@ -1,0 +1,15 @@
+package kr.pren.dao;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+
+import kr.pren.util.IbatisUtil;
+
+public class SteamDao {
+	private static SteamDao instance = new SteamDao();
+	private SteamDao() {}
+	public static  SteamDao getInstance() {
+		return instance;
+	}
+	
+	private SqlMapClient sqlmap = IbatisUtil.getSqlmap();
+}

@@ -1,0 +1,15 @@
+package kr.pren.dao;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+
+import kr.pren.util.IbatisUtil;
+
+public class ReviewDao {
+	private static ReviewDao instance = new ReviewDao();
+	private ReviewDao() {}
+	public static  ReviewDao getInstance() {
+		return instance;
+	}
+	
+	private SqlMapClient sqlmap = IbatisUtil.getSqlmap();
+}

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Messages">
+	<select id="getAllMessage" parameterClass="map" resultClass="Message">
+		select 
+			msg_no 			as no,
+			send_user 		as sendUserNo,
+			receive_user_no as ReceiveUserNo,
+			msg_contents    as content,
+			msg_star 		as star,
+			msg_read		as isRead,
+			msg_sell_state  as sellState,
+			msg_send_date   as sendDate
+		from 
+			message_tables
+		where
+			receivce_user_no = ##
+		and
+			
+		
+			
+	
+	</select>
+
+	<select id="getMessageCount" parameterClass="int" resultClass="Message">
+		select
+			count(*)
+		from
+			message_tables
+		where
+			receive_user_no =#value#
+	</select>
+</sqlMap>

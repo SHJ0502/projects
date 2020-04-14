@@ -1,0 +1,29 @@
+package kr.pren.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+
+import kr.pren.util.IbatisUtil;
+import kr.pren.vo.Review;
+
+public class ReviewDao {
+	private static ReviewDao instance = new ReviewDao();
+	private ReviewDao() {}
+	public static  ReviewDao getInstance() {
+		return instance;
+	}
+	
+	private SqlMapClient sqlmap = IbatisUtil.getSqlmap();
+	
+	// 리뷰 입력하기
+	public void insertReview (Review review) throws SQLException {
+		sqlmap.insert("reviews.insertReview", review);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Review> getReviewByItemNo (int productNo) throws SQLException {
+		return sqlmap.queryForList("reviews.getReviewByItemNo", productNo);
+	}
+}

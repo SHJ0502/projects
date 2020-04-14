@@ -1,0 +1,15 @@
+package kr.pren.dao;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+
+import kr.pren.util.IbatisUtil;
+
+public class SaleItemDao {
+	private static SaleItemDao instance = new SaleItemDao();
+	private SaleItemDao() {}
+	public static  SaleItemDao getInstance() {
+		return instance;
+	}
+	
+	private SqlMapClient sqlmap = IbatisUtil.getSqlmap();
+}

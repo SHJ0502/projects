@@ -1,0 +1,42 @@
+package kr.pren.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+
+import kr.pren.util.IbatisUtil;
+import kr.pren.vo.Order;
+
+public class OrderDao {
+	private static OrderDao instance = new OrderDao();
+	private OrderDao() {}
+	public static  OrderDao getInstance() {
+		return instance;
+	}
+	
+	private SqlMapClient sqlmap = IbatisUtil.getSqlmap();
+
+	@SuppressWarnings("unchecked")
+	public List<Order> getAllOrderByUserNo(int userNo) throws SQLException {
+		return sqlmap.queryForList("orders.getAllOrderByUserNo",userNo);
+				
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Order> getAllOrderBySearchForm(Map<String, Object> searchMap) throws SQLException {
+		return sqlmap.queryForList("orders.getAllOrderBySearchForm",searchMap);
+		
+	} 
+	
+	public Order getOrderByItemNoAndUserNo(Map<String, Object> map) throws SQLException {
+		return (Order) sqlmap.queryForObject("orders.getOrderByItemNoAndUserNo",map);
+	}
+	
+	// 유저번호 최신 주문아이템 조회하기
+	
+	public Order getNewOrderByMap (Map<String, Object> map) throws SQLException {
+		return (Order) sqlmap.queryForObject("orders.getNewOrderByMap", map);
+	}
+}

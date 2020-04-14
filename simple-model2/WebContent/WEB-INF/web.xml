@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>simple-model2</display-name>
+  
+  <!-- 서블릿컨텍스트의 초기화 파라미터 -->
+  <context-param>
+  		<param-name>configLocation</param-name>
+  		<param-value>/WEB-INF/config/config.xml</param-value>
+  </context-param>
+   <context-param>
+  		<param-name>admin-email</param-name>
+  		<param-value>admin@hta.co.kr</param-value>
+  </context-param>
+  <!-- 
+  		Scope1Controller을 웹 애플리케이션에 배포하기
+   -->
+   
+   <servlet>
+   		<servlet-name>s1</servlet-name>
+   		<servlet-class>kr.co.jhta.simple.controller.Scope1Controller</servlet-class>
+   		<!-- 초기화 파라미터 -->
+   		<init-param>
+   			<param-name>saveDirectory</param-name>
+   			<param-value>c:/upload</param-value>
+   		</init-param>
+   		<init-param>
+   			<param-name>maxUploadSize</param-name>
+   			<param-value>1024</param-value>
+   		</init-param>
+   </servlet>
+   <servlet-mapping>
+   <!-- /scope1.hta이라는 url요청이 오면 servlet 이름이 s1 이라는 것을 불러온다. -->
+   		<servlet-name>s1</servlet-name>
+   		<url-pattern>/scope1.hta</url-pattern>
+   </servlet-mapping>
+   
+   
+   <!-- 
+  		Scope2Controller을 웹 애플리케이션에 배포하기
+   -->
+   
+   <servlet>
+   		<servlet-name>s2</servlet-name>
+   		<servlet-class>kr.co.jhta.simple.controller.Scope2Controller</servlet-class>
+   		<!-- 서블릿의 초가화 파라미터 -->
+   		<init-param>
+   			<param-name>role</param-name>
+   			<param-value>admin</param-value>
+   		</init-param>
+   </servlet>
+   <servlet-mapping>
+   		<servlet-name>s2</servlet-name>
+   		<url-pattern>/scope2.hta</url-pattern>
+   </servlet-mapping>
+   
+   <!-- 
+  		Scope3Controller을 웹 애플리케이션에 배포하기
+   -->
+   
+   <servlet>
+   		<servlet-name>s3</servlet-name>
+   		<servlet-class>kr.co.jhta.simple.controller.Scope3Controller</servlet-class>
+   </servlet>
+   <servlet-mapping>
+   		<servlet-name>s3</servlet-name>
+   		<url-pattern>/scope3.hta</url-pattern>
+   </servlet-mapping>
+   
+   
+</web-app>

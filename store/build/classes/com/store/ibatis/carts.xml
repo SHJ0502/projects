@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="carts">
+	
+	<!-- 배치작업용 -->
+	<delete id="deleteCartItemsByBatch">
+		delete from 
+			bookstore_carts
+		where 
+			cart_create_date &lt; (sysdate-7)
+	</delete>
+	
+	<update id="updateUserStateByBatch">
+		update users
+		set
+			user_status = 'N'
+		where
+			user_status != 'N'
+		and
+			months_between(sysdate, user_logined_date) > 12
+	</update>
+	
+	<!-- 장바구니 담기 -->
+	<insert id="insertCartItem" parameterClass="CartItem">
+		insert into bookstore_carts
+		(cart_no, book_no, user_no, cart_amount)
+		values
+		(bookstore_cart_seq.nextval, #book.no#, #user.no#, 1)
+	</insert>
+	
+	<!-- 장바구니 수량 변경 -->
+	<update id="updateCartItem" parameterClass="CartItem">
+		update
+			bookstore_carts
+		set
+			cart_amount = #amount#
+		where
+			cart_no = #no#			
+	</update>
+	
+	<!-- 장바구니에서 상품 삭제 -->
+	<delete id="deleteCartItem" parameterClass="CartItem">
+		delete from
+			bookstore_carts
+		where
+			cart_no = #no#
+		and
+			user_no = #user.no#
+	</delete>
+	
+	<delete id="deleteAllMyCart" parameterClass="int">
+		delete from
+			bookstore_carts
+		where
+			user_no = #value#
+	</delete>
+
+	<!-- 장바구니에 담긴 상품 찾기(사용자번호 + 책번호) -->
+	<select id="getCartItem" parameterClass="CartItem" resultClass="CartItem">
+		select
+			cart_no		as no,
+			book_no		as "book.no",
+			user_no		as "user.no",
+			cart_amount	as amount
+		from
+			bookstore_carts
+		where
+			book_no = #book.no#
+		and
+			user_no = #user.no#
+	</select>
+	
+	<!-- 장바구니에 담긴 상품 찾기 (사용자번호) -->
+	<select id="getCartItemsByUserNo" parameterClass="int" resultClass="CartItem">
+		select
+			A.cart_no				as no,
+			B.book_no				as "book.no",
+			B.book_title			as "book.title",
+			B.book_price			as "book.price",
+			B.book_discount_price	as "book.discountPrice",
+			A.cart_amount			as amount
+		from
+			bookstore_carts A, bookstore_books B
+		where
+			A.book_no = B.book_no
+		and
+			A.user_no = #value#
+	</select>
+	
+</sqlMap>
+
+

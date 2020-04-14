@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="orders">
+	<!--특정 유저가 구입한 상품 조회 -->
+	<select id="getAllOrderByUserNo" parameterClass="int" resultClass="Order">
+		select
+			A.order_no 				 as no,
+			A.user_no 				 as userNo,
+			A.item_no    			 as itemNo,
+			A.order_state 			 as state,
+			A.order_sheet 			 as sheet,
+			A.order_create_date 	 as createDate,
+			A.order_compleate_date   as compleateDate,
+			B.item_title        	 as "saleItem.title",
+			B.item_price 			 as "saleItem.price",
+			C.user_name				 as "user.name",
+			C.user_nickname 		 as "user.nickName"
+		from
+			order_tables A, SALE_ITEM_TABLES B, user_tables C
+		where
+			A.item_no = B.item_no 
+		and
+			B.user_no = C.user_no
+		and
+			A.user_no = #value#
+	</select>
+	
+	<select id="getAllOrderBySearchForm" parameterClass="map" resultClass="Order">
+		select
+			A.order_no 				 as no,
+			A.user_no 				 as userNo,
+			A.item_no    			 as itemNo,
+			A.order_state 			 as state,
+			A.order_sheet 			 as sheet,
+			A.order_create_date 	 as createDate,
+			A.order_compleate_date   as compleateDate,
+			B.item_title        	 as "saleItem.title",
+			B.item_price 			 as "saleItem.price",
+			C.user_name				 as "user.name",
+			C.user_nickname			 as "user.nickName"
+		from
+			order_tables A, SALE_ITEM_TABLES B, user_tables C
+		where
+			A.user_no = #userNo#
+		and
+			A.item_no = B.item_no 
+		and
+			B.user_no = C.user_no
+		<dynamic prepend="and">
+			<isNotEqual property="selectState" compareValue="전체">
+				A.order_state = #selectState#
+			</isNotEqual>
+		</dynamic>
+		and 
+			rownum &lt;=#selectDisplayNum#
+		and
+			A.order_create_date between TO_DATE(#startDate#, 'yyyy-mm-dd') and TO_DATE(#endDate#, 'yyyy-mm-dd')
+	</select>
+	
+	<select id="getOrderByItemNoAndUserNo" parameterClass="map" resultClass="Order">
+		select
+			A.order_no 				 as no,
+			A.user_no 				 as userNo,
+			A.item_no    			 as itemNo,
+			A.order_state 			 as state,
+			A.order_sheet 			 as sheet,
+			A.order_create_date 	 as createDate,
+			A.order_compleate_date   as compleateDate,
+			B.item_title        	 as "saleItem.title",
+			B.item_price 			 as "saleItem.price",
+			C.user_name				 as "user.name",
+			C.user_nickname 		 as "user.nickName"
+		from
+			order_tables A, SALE_ITEM_TABLES B, user_tables C
+		where
+			A.item_no = B.item_no 
+		and
+			B.user_no = C.user_no
+		and
+			A.item_no  = #itemNo#
+		and
+			A.user_no  = #userNo#
+	</select>
+	
+	<!-- 같은 유저아이디의 최신 주문아이템 조회하기 -->
+	<select id="getNewOrderByMap" parameterClass="map" resultClass="Order">
+		select
+			order_no 				as no,
+			user_no 				as userNo,
+			item_no    			 	as itemNo,
+			order_state 			as state,
+			order_sheet 			as sheet,
+			order_create_date 	 	as createDate,
+			order_compleate_date   	as compleateDate
+		from(SELECT
+				ROWNUM			as r,
+				order_no,
+				user_no,
+				item_no,
+				order_state,
+				order_sheet,
+				order_create_date,
+				order_compleate_date 
+			FROM(
+				SELECT
+					ROWNUM			as r,
+					order_no,
+					user_no,
+					item_no,
+					order_state,
+					order_sheet,
+					order_create_date,
+					order_compleate_date 
+				FROM
+					ORDER_TABLES
+				ORDER BY
+					order_compleate_date DESC	)
+				
+			WHERE
+				user_no = #userNo#
+			and
+				item_no = #productNo#)
+			
+		where
+			r &lt;= 1
+	</select>
+
+	<select id="getOrderByOrderNo" parameterClass="int" resultClass="Order">
+		select
+			A.order_no 				 as no,
+			A.user_no 				 as userNo,
+			A.item_no    			 as itemNo,
+			A.order_state 			 as state,
+			A.order_sheet 			 as sheet,
+			A.order_create_date 	 as createDate,
+			A.order_compleate_date   as compleateDate,
+			B.item_title        	 as "saleItem.title",
+			B.item_price 			 as "saleItem.price",
+			C.user_name				 as "user.name"
+		from
+			order_tables A, SALE_ITEM_TABLES B, user_tables C
+		where
+			A.item_no = B.item_no 
+		and
+			B.user_no = C.user_no
+		and
+			A.order_no = #value#
+		
+	</select>
+
+</sqlMap>

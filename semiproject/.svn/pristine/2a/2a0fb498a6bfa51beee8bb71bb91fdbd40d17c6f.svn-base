@@ -1,0 +1,35 @@
+package kr.pren.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+
+import kr.pren.util.IbatisUtil;
+import kr.pren.vo.SaleItem;
+
+public class SaleItemDao {
+	private static SaleItemDao instance = new SaleItemDao();
+	private SaleItemDao() {}
+	public static  SaleItemDao getInstance() {
+		return instance;
+	}
+	
+	private SqlMapClient sqlmap = IbatisUtil.getSqlmap();
+	
+	// 상품등록
+	public void insertSaleItem(SaleItem saleItem) throws SQLException {
+		sqlmap.insert("saleitems.insertSaleItem", saleItem);
+	}
+	
+	//유저의 찜목록 아이템 모두 가져오기
+	@SuppressWarnings("unchecked")
+	public List<SaleItem> getAllSteamItems(int userNo) throws SQLException {
+		return sqlmap.queryForList("saleitems.getAllSteamItems",userNo);
+	}
+	
+	public List<SaleItem> getSaleItemOrderByLike(Map<String, Object> param) throws SQLException {
+		return sqlmap.queryForList("saleitems.getSaleItemOrderByLike", param);
+	}
+}

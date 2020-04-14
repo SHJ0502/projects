@@ -1,0 +1,13 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+<div class="navbar navbar-default" style="background-color: #F2F2F2">
+	<div class="container">
+		<div class="navbar-header">
+			<a class="navbar-brand"><img src="resources/images/profile/logo.png" style="width: 120px; height: 30px;"></a>
+		</div>
+		<ul class="nav navbar-nav navbar-right">
+			<li><a href="../mypage/index.jsp">나가기</a></li>
+		</ul>
+	</div>
+</div>

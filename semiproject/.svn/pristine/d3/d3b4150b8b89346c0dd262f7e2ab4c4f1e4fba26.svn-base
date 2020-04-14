@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="users">
+	<insert id="insertUser" parameterClass="User">
+		insert into user_tables
+		(user_no, user_name, user_email, user_password, user_phone, user_nickname, user_quiz_question, user_quiz_answer)
+		values
+		(USER_TABLE_SEQ.nextval, #name#, #email#, #password#, #phoneNum#, #nickName#, #quizQuestion#, #quizAnswer#)
+	</insert>
+	
+	<select id="getUserById" parameterClass="string" resultClass="User">
+		select
+			user_no as no,
+			user_name as name,
+			user_email as email,
+			user_password as password,
+			user_phone as phoneNum,
+			user_nickname as nickName,
+			user_refund_bank_no as bank_no,
+			user_quiz_question as quizQuestion,
+			user_quiz_answer as quizAnswer,
+			user_create_date as createDate
+		from
+			user_tables
+		where
+			user_email = #value#
+	</select>
+
+	<select id="findUserById" parameterClass="User" resultClass="User">
+		select
+			user_email as email
+		from
+			user_tables
+		where
+			user_phone = #phoneNum#
+		and
+			user_name = #name#
+	</select>
+	
+	<select id="getUserByNo" parameterClass="int" resultClass="User">
+		select
+			user_no as no,
+			user_name as name,
+			user_email as email,
+			user_password as password,
+			user_phone as phoneNum,
+			user_nickname as nickName,
+			user_refund_bank_no as bank_no,
+			user_quiz_question as quizQuestion,
+			user_quiz_answer as quizAnswer,
+			user_create_date as createDate
+		from
+			user_tables
+		where
+			user_no = #value#
+	</select>
+	
+	<select id="findUserByPwd" parameterClass="User" resultClass="User">
+		select
+			user_password as password,
+			user_no		  as no
+		from
+			user_tables
+		where
+			user_email = #email#
+		and
+			user_quiz_question = #quizQuestion#
+		and
+			user_quiz_answer = #quizAnswer#
+	</select>
+	
+	<update id="updatepwd" parameterClass="map">
+		update
+			user_tables
+		set
+			user_password = #pwd#
+		where
+			user_no = #value#
+	</update>
+	
+	<update id="dropOutUser" parameterClass="map">
+		update
+			user_tables
+		set
+			user_delete_reason = #deleteReason#,
+			user_delete = 'y',
+			user_delete_select = #deleteSelect#
+		where
+			user_email = #userEmail#
+	</update>
+	
+</sqlMap>

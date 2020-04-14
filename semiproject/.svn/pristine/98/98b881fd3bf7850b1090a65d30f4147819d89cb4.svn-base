@@ -1,0 +1,10 @@
+package kr.pren.vo;
+
+import java.util.Date;
+
+public class Steam {
+	int no;
+	int userNo;
+	int itemNo;
+	Date createDate;
+}

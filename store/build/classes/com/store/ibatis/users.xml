@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="users">
+
+	<select id="getAllUsers" resultClass="User">
+		select
+			user_no					as no,
+			user_id					as id,
+			user_password			as password,
+			user_name				as name,
+			user_point				as point,
+			user_enabled			as enabled,
+			user_image_filename		as imageFilename,
+			user_create_date		as createDate
+		from
+			bookstore_users
+		where
+			user_enabled = 'Y'
+	</select>
+
+	<update id="updateUserGrade" parameterClass="int">
+		update
+			bookstore_users
+		set
+			user_grade = (select
+						case
+							when user_point >= 1000000 then 'vvip'
+							when user_point >= 300000 then 'vip'
+							when user_point >= 100000 then 'gold'
+							when user_point >= 70000 then 'silver'
+							when user_point >= 30000 then 'bronze'
+							else 'guest'
+						end
+						from
+							bookstore_users
+						where
+							user_no = #value#)
+		where
+			user_no = #value#;
+			
+	</update>
+	
+	<insert id="insertUser" parameterClass="User">
+		insert into bookstore_users
+		(user_no, user_id, user_password, user_name, user_image_filename)
+		values
+		(bookstore_user_seq.nextval, #id#, #password#, #name#, #imageFilename#)
+	</insert>
+	
+	<select id="getUserById" parameterClass="string" resultClass="User">
+		select
+			user_no					as no,
+			user_id					as id,
+			user_password			as password,
+			user_name				as name,
+			user_point				as point,
+			user_enabled			as enabled,
+			user_image_filename		as imageFilename,
+			user_create_date		as createDate
+		from
+			bookstore_users
+		where
+			user_id= #value#
+	</select>
+</sqlMap>
+
+

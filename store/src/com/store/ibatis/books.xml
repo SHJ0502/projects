@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="books">
+	
+	<select id="getAllbooks" resultClass="Book">
+		select
+				book_no					as no,
+				book_title				as title,
+				book_writer				as writer,
+				book_price				as price,
+				book_discount_price		as discountPrice,
+				book_soldout			as soldout,
+				book_stock				as stock,
+				book_create_date		as createDate
+		from
+				bookstore_books
+	</select>
+	
+	<select id="getNewBooksCount" resultClass="int">
+		select
+			count(*)
+		from
+			bookstore_books
+		where
+			book_create_date >= (sysdate - 30)
+	</select>
+	
+	<select id="getNewBooks" parameterClass="map" resultClass="Book">
+		SELECT
+			no,
+			title,
+			writer,
+			price,
+			discountPrice
+		FROM (select
+					ROW_NUMBER() OVER (ORDER BY book_no desc) rn,
+					book_no					as no,
+					book_title				as title,
+					book_writer				as writer,
+					book_price				as price,
+					book_discount_price		as discountPrice
+				from
+					bookstore_books
+				where
+					book_create_date >= (sysdate - 60))
+		WHERE rn >=#begin# and rn &lt;= #end#
+	</select>
+	
+	<select id="getBookByNo" parameterClass="int" resultClass="Book">
+		select
+			book_no					as no,
+			book_title				as title,
+			book_writer				as writer,
+			book_price				as price,
+			book_discount_price		as discountPrice,
+			book_soldout			as soldout,
+			book_stock				as stock,
+			book_create_date		as createDate
+		from
+			bookstore_books
+		where
+			book_no = #value#
+	</select>
+
+</sqlMap>

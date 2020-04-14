@@ -1,0 +1,39 @@
+<%@page import="kr.pren.dao.UserDao"%>
+<%@page import="kr.pren.vo.SaleItem"%>
+<%@page import="java.util.List"%>
+<%@page import="kr.pren.dao.SaleItemDao"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<%@ include file="../../common/nav.jsp" %>
+<div class="container">
+	<div class="col-sm-12">
+ 		<div class="row">
+ 		<%
+ 			String search  = request.getParameter("search");
+ 			SaleItemDao saleItemDao = SaleItemDao.getInstance();
+ 			List<SaleItem> searchItemList = saleItemDao.getItemBySearch(search);
+			 		
+	 		for(SaleItem item : searchItemList ) {
+		 		UserDao userDao = UserDao.getInstance();
+	 			User user = userDao.getUserByNo(item.getUser().getNo());
+ 		%>
+	 		<%@include file="../../common/display_item.jsp" %>
+ 		<%
+ 			}
+ 		%>
+ 		</div>
+	
+</div>
+</body>
+</html>

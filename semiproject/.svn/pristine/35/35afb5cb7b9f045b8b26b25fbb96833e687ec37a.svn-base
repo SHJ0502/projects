@@ -1,0 +1,15 @@
+package kr.pren.dao;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+
+import kr.pren.util.IbatisUtil;
+
+public class OptionDao {
+	private static OptionDao instance = new OptionDao();
+	private OptionDao() {}
+	public static  OptionDao getInstance() {
+		return instance;
+	}
+	
+	private SqlMapClient sqlmap = IbatisUtil.getSqlmap();
+}

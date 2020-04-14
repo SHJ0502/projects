@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="books">
+
+	<insert id="insertBook" parameterClass="Book">
+		insert into bookstore_books
+		(BOOK_NO, BOOK_TITLE, BOOK_WRITER, BOOK_PRICE, BOOK_STOCK)
+		values
+		(BOOKSTORE_BOOK_SEQ.nextval, #title#, #writer#, #price#, #stock#)
+	</insert>
+
+	<select id="getNewBooks" resultClass="Book">
+		select
+			BOOK_NO					as no,
+			BOOK_TITLE				as title,
+			BOOK_WRITER				as writer,
+			BOOK_PRICE				as price,
+			BOOK_DISCOUNT_PRICE		as discountPrice,
+			BOOK_SOLDOUT			as soldout,
+			BOOK_CREATE_DATE		as createDate,
+			BOOK_STOCK				as stock
+		from
+			bookstore_books
+		where
+			BOOK_CREATE_DATE >= (sysdate - 300)
+	</select>
+	
+	<select id="searchBooks" parameterClass="map" resultClass="Book">
+		select
+			BOOK_NO					as no,
+			BOOK_TITLE				as title,
+			BOOK_WRITER				as writer,
+			BOOK_PRICE				as price,
+			BOOK_DISCOUNT_PRICE		as discountPrice,
+			BOOK_SOLDOUT			as soldout,
+			BOOK_CREATE_DATE		as createDate,
+			BOOK_STOCK				as stock
+		from
+			bookstore_books
+		where
+			1 = 1
+		<dynamic>
+			<isEqual property="optionValue" compareValue="T">
+				and BOOK_TITLE like '%' || #keywordValue# || '%'
+			</isEqual>
+			<isEqual property="optionValue" compareValue="W">
+				and BOOK_WRITER like '%' || #keywordValue# || '%'
+			</isEqual>
+			<isEqual property="optionValue" compareValue="P">
+				and BOOK_PRICE &lt;= #keywordValue#
+			</isEqual>
+		</dynamic>
+		
+	</select>
+	
+	<select id="getBookByNo" parameterClass="int" resultClass="Book">
+		select
+			BOOK_NO					as no,
+			BOOK_TITLE				as title,
+			BOOK_WRITER				as writer,
+			BOOK_PRICE				as price,
+			BOOK_DISCOUNT_PRICE		as discountPrice,
+			BOOK_SOLDOUT			as soldout,
+			BOOK_CREATE_DATE		as createDate,
+			BOOK_STOCK				as stock
+		from
+			bookstore_books
+		where
+			BOOK_NO = #value#
+	</select>
+	
+	<update id="updateBook" parameterClass="Book">
+		update
+			bookstore_books
+		set
+			book_stock = #stock#
+		where
+			book_no = #no#		
+	</update>
+
+</sqlMap>

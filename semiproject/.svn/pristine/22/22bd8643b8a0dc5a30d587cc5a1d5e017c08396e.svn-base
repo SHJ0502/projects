@@ -1,0 +1,34 @@
+<%@page import="kr.pren.dao.SaleItemDao"%>
+<%@page import="kr.pren.vo.SaleItem"%>
+<%@page import="kr.pren.vo.Order"%>
+<%@page import="kr.pren.dao.OrderDao"%>
+<%@page import="kr.pren.vo.User"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	User loginedUser = (User)session.getAttribute("LOGINED_USER");
+
+	request.setCharacterEncoding("utf-8");
+	
+	OrderDao orderDao = OrderDao.getInstance();
+	
+	int productNo = Integer.parseInt(request.getParameter("productNo"));
+	String itemName = request.getParameter("itemName");
+	String itemUserName = request.getParameter("itemUserName");
+	String sheet = request.getParameter("sheet");
+	int sumtext = Integer.parseInt(request.getParameter("sumtext"));
+
+	SaleItemDao saleItemDao = SaleItemDao.getInstance();
+	SaleItem saleItem = saleItemDao.getSaleItemByNo(productNo);
+	
+	Order order = new Order();
+	order.setUserNo(loginedUser.getNo());
+	order.setItemNo(productNo);
+	order.setState("대기중");
+	order.setSheet(sheet);
+	order.setTotalPrice(sumtext);
+	
+	orderDao.insertOrder(order);
+
+	response.sendRedirect("../buy_management/buy_management.jsp");
+%>

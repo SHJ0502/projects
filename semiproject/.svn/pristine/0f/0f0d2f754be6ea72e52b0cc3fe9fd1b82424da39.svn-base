@@ -1,0 +1,36 @@
+<%@page import="kr.pren.vo.User"%>
+<%@page import="kr.pren.dao.UserDao"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<% 
+	request.setCharacterEncoding("utf-8");
+
+	String email = request.getParameter("useremail");
+	String password = request.getParameter("userpwd");
+	String path = request.getParameter("path");
+	
+	System.out.println(email);
+	System.out.println(password);
+	System.out.println(path);
+	
+	UserDao userDao = UserDao.getInstance();
+	
+	User user = userDao.getUserById(email);
+	
+	if(user == null){
+		response.sendRedirect("login_form.jsp?failid=errorid");
+		return;
+	}
+	
+	if(!user.getPassword().equals(password)){
+		response.sendRedirect("login_form.jsp?failpwd=errorpwd");
+		return;
+	}
+	
+	session.setAttribute("LOGINED_USER", user);
+	
+	response.sendRedirect(path);
+
+	
+	
+%>

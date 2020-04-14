@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="itemimages">
+
+	<!-- 서브 이미지 등록 -->
+	<insert id="insertSubItemImages" parameterClass="ItemImage">
+		insert into ITEM_IMAGE_TABLES
+		(ITEM_IMAGE_TABLES_NO, ITEM_NO, USER_NO, ITEM_IMAGE_NAME)
+		values
+		(item_image_seq.nextval, #itemNo#, #userNo#, #Name#)
+	</insert>
+	
+</sqlMap>

@@ -1,0 +1,25 @@
+package kr.pren.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+
+import kr.pren.util.IbatisUtil;
+import kr.pren.vo.MainCategory;
+
+public class MainCategoryDao {
+	private static MainCategoryDao instance = new MainCategoryDao();
+	private MainCategoryDao() {}
+	public static  MainCategoryDao getInstance() {
+		return instance;
+	}
+	
+	private SqlMapClient sqlmap = IbatisUtil.getSqlmap();
+	
+	@SuppressWarnings("unchecked")
+	public List<MainCategory> getMainCategory () throws SQLException {
+		return sqlmap.queryForList("maincategories.getMainCategory");
+		
+	}
+}

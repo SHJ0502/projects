@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  	<title>text02_attr.html</title>
+  	<meta charset="utf-8">
+  	<script src="js/jquery-3.4.1.min.js"></script>
+  	<script type="text/javascript">
+  		$(document).ready(function() {
+			$("#btn1").click(function() {
+				//.prop(propertyName)
+				var name=$("#name").prop("value");
+				alert("당신의 이름은" + name + "이군요!");
+			});
+			$("#btn2").click(function() {
+				$("#img1").prop("src", "images/b.jpg");	
+			});
+			
+			var cnt=0;
+			$("#btn3").click(function() {
+				//.prop(propertyName, value) : 속성값 설정하기 (setter역할)
+				/* 짝수 홀수  */
+				if(cnt%2==0){
+					$("#img1").prop("src", "images/b.jpg");
+				}else{
+					$("#img1").prop("src", "images/a.jpg");
+				}
+				cnt++;
+			});
+			$("#btn4").click(function() {
+				//var id=$("#chk1").prop("id");
+				var id=$("#chk1").attr("id");
+				$("#chk1").attr("type", "radio");
+				alert("체크박스 아이디:" + id);
+			});
+			$("#btn5").click(function() {
+				//var checked=$("#chk1").prop("checked");
+				alert("체크상태:" + checked);
+			});
+		});
+  	</script>
+</head>
+<body>
+이름<input type="text" id="name" value="홍길동">
+<input type="button" value="확인" id="btn1">
+<input type="button" value="이미지바꾸기" id="btn2">
+<!-- 이미지가 번갈아 바뀌게 하기. -->
+<br>
+<input type="button" value="이미지바꾸기" id="btn3">
+<br>
+<img id="img1" src="images/a.jpg" style="width: 200px; height: 150px;">
+<br>
+선택 <input type="checkbox" value="check" id="chk1" checked="checked">
+<input type="button" value="상태1" id="btn4">
+<input type="button" value="상태2" id="btn5">
+<br>
+</body>
+</html>

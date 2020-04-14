@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  	<title>test01.html</title>
+  	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<script src="js/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript">
+		window.onload=function(){
+			var btn1=document.getElementById("btn1");
+			btn1.onclick=function(){
+				alert("안녕하세요!");
+			}
+		}
+		$(document).ready(function() {
+			$("#btn2").click(function() {
+				alert("hello!!");
+			});
+			$("#btn3").click(function() {
+				//$("#box").hide(3000);
+				$("#box").slideUp(1000);
+			});
+			$("#btn4").click(function() {
+				//$("#box").show(1000);
+				$("#box").slideDown(1000);
+			});
+			
+		});
+	</script>  	
+</head>
+<body>
+<input type ="button" value="버튼1" id="btn1">
+<input type ="button" value="버튼2" id="btn2">
+<input type ="button" value="버튼3" id="btn3">
+<!-- 보이기 버튼을 클릭하면 div가 보여지도록 해보세요. -->
+<input type ="button" value="버튼4" id="btn4">
+<div id="box" style="width: 300px; height: 200px; background-color: red">
+</div>
+</body>
+</html>

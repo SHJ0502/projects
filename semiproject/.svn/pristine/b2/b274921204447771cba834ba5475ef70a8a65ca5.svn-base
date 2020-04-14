@@ -1,0 +1,87 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <title>프랜</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<%@ include file="../../common/nav.jsp" %>
+<div class="container" style="height:790px;">
+	<div class="row">
+		<div class="col-sm-12">
+			<h3>회원가입</h3>
+		</div>		
+	</div>
+	
+	<form action="">
+		<div class="row">
+			<div class="col-sm-8">
+				<div class="form-group">
+					<input type="text" class="form-control" name="userid" placeholder="이메일을 입력해주세요"/>
+				</div>
+				<div class="form-group">
+					<input type="password" class="form-control" name="userpwd" placeholder="비밀번호를 입력해주세요"/>
+				</div>
+				<div class="form-group">
+					<input type="password" class="form-control" name="userpwdconfirm" placeholder="비밀번호 확인"/>
+				</div>
+				<div class="form-group">
+					<select name="question" class="form-control">
+						<option value="">나의 보물 1호?</option>
+						<option value="">부모님 이름은?</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" name="questionconfirm" placeholder="답변 확인"/>
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" name="username" placeholder="이름을 입력해주세요"/>
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" name="userphone" placeholder="번호를 입력해주세요."/>
+				</div>
+			</div>
+			
+			<div class="col-sm-4">
+				<div class="panel-heading">
+					<h4>이용약관 내용 동의</h4> 
+				</div>
+				<div class="panel-body">
+					<div class="checkbox">
+						<label><input type="checkbox"/>전체동의 </label>
+					</div>
+					<hr>
+					<div class="checkbox">
+						<label><input type="checkbox"/>만 14세 이상입니다(필수)</label>
+					</div>
+					<div class="checkbox">
+						<label><input type="checkbox"/>서비스 이용약관동의(필수)</label>
+					</div>
+					<div class="checkbox">
+						<label><input type="checkbox"/>개인정보 수집 동의(필수)</label>
+					</div>
+					
+				</div>
+				<div>
+					<button type="submit" class="btn btn-lg btn-default btn-block">회원가입</button>
+				</div>
+				
+				<div class="menu-wrap">
+					<span class="pull-left"><a href="findidpwd.jsp">아이디 /비밀번호찾기</a></span>
+				<span class="pull-right"><a href="registerform.jsp">회원가입</a></span>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+
+	<%@ include file="../../common/footer.jsp" %>
+</body>
+</html>

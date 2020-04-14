@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="contacts">
+
+	<insert id="insertContact" parameterClass="Contact">
+		insert into contacts
+		(no, name, tel, address, email, fax)
+		values
+		(Contacts_seq.nextval, #name#, #tel#, #address#, #email#, #fax#)
+	</insert>
+	
+	<update id="updateContact" parameterClass="Contact">
+		update
+			contacts
+		set
+			name = #name#,
+			tel = #tel#,
+			address = #address#,
+			fax = #fax#,
+			email = #email#
+		where
+			no = #no#
+			
+	</update>
+	
+	<delete id="deleteContact" parameterClass="int">
+		delete from contacts
+		where no =#value#
+	</delete>
+	
+	<select id="getContact" parameterClass="int" resultClass="Contact">
+		select
+			no,
+			name,
+			tel,
+			address,
+			email,
+			fax,
+			create_date createDate
+		from
+			contacts
+		where
+			no = #value#
+	</select>
+
+	<select id="getContactByTel" parameterClass="string" resultClass="Contact">
+		select
+			no,
+			name,
+			tel,
+			address,
+			email,
+			fax,
+			create_date createDate
+		from
+			contacts
+		where
+			tel = #value#
+	</select>
+
+	<select id="getContacts" resultClass="Contact">
+		select
+			no,
+			name,
+			tel,
+			address,
+			email,
+			fax,
+			create_date createDate
+		from
+			contacts
+		order by
+			name asc
+	</select>
+</sqlMap>

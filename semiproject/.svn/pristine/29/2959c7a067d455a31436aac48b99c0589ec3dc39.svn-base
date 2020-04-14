@@ -1,0 +1,15 @@
+package kr.pren.dao;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+
+import kr.pren.util.IbatisUtil;
+
+public class NoticeDao {
+	private static NoticeDao instance = new NoticeDao();
+	private NoticeDao() {}
+	public static  NoticeDao getInstance() {
+		return instance;
+	}
+	
+	private SqlMapClient sqlmap = IbatisUtil.getSqlmap();
+}

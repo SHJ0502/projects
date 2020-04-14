@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="orders">
+	<!--특정 유저가 구입한 상품 조회 -->
+	<select id="getAllOrderByUserNo" parameterClass="int" resultClass="Order">
+		select
+			A.order_no 				 as no,
+			A.user_no 				 as userNo,
+			A.item_no    			 as itemNo,
+			A.order_state 			 as state,
+			A.order_sheet 			 as sheet,
+			A.order_create_date 	 as createDate,
+			A.order_compleate_date   as compleateDate,
+			B.item_title        	 as "saleItem.title",
+			B.item_price 			 as "saleItem.price",
+			C.user_name				 as "user.name"
+		from
+			order_tables A, SALE_ITEM_TABLES B, user_tables C
+		where
+			A.item_no = B.item_no 
+		and
+			B.user_no = C.user_no
+		and
+			user_no = #value#
+	</select>
+	
+	<select id="getAllOrderBySearchForm" parameterClass="map" resultClass="Order">
+		select
+			A.order_no 				 as no,
+			A.user_no 				 as userNo,
+			A.item_no    			 as itemNo,
+			A.order_state 			 as state,
+			A.order_sheet 			 as sheet,
+			A.order_create_date 	 as createDate,
+			A.order_compleate_date   as compleateDate,
+			B.item_title        	 as "saleItem.title",
+			B.item_price 			 as "saleItem.price",
+			C.user_name				 as "user.name"
+		from
+			order_tables A, SALE_ITEM_TABLES B, user_tables C
+		where
+			A.item_no = B.item_no 
+		and
+			B.user_no = C.user_no
+		and 
+			A.order_state = #selectState#
+		and 
+			rownum >=#selectDisplayNum#
+		and
+			A.order_create_date between #startDate# and #endDate#
+	</select>
+	
+	<select id="getaOrderByItemNoAndUserNo" parameterClass="map" resultClass="Order">
+		select
+			select
+			A.order_no 				 as no,
+			A.user_no 				 as userNo,
+			A.item_no    			 as itemNo,
+			A.order_state 			 as state,
+			A.order_sheet 			 as sheet,
+			A.order_create_date 	 as createDate,
+			A.order_compleate_date   as compleateDate,
+			B.item_title        	 as "saleItem.title",
+			B.item_price 			 as "saleItem.price",
+			C.user_name				 as "user.name"
+		from
+			order_tables A, SALE_ITEM_TABLES B, user_tables C
+		where
+			A.item_no = B.item_no 
+		and
+			B.user_no = C.user_no
+		and
+			A.item_no  = #itemNo#
+		and
+			A.user_no  = #userNo#
+	</select>
+	
+	
+</sqlMap>

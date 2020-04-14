@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="emp">
+
+	<insert id="insertEmployee" parameterClass="Employee">
+		insert into employees
+			(employee_id, first_name, last_name, phone_number, email, hire_date, job_id, salary, commission_pct, manager_id, department_id)
+		values
+			(employees_seq.nextval, #firstName#, #lastName#, #phoneNumber#, #email#, sysdate, #job.id#, #salary#, #commissionPct#, #manager.id#, #department.id#)
+	</insert>
+
+	<!-- 모든 사원정보 보회 -->
+	<select id="getAllEmployees" resultClass="Employee">
+		select
+			A.employee_id				as id,
+			A.first_name				as firstName,
+			A.last_name					as lastName,
+			A.phone_number				as phoneNumber,
+			A.salary					as salary,
+			A.email						as email,
+			C.department_name			as "department.name",
+			nvl(C.department_id,0)		as "department.id",
+			A.job_id					as "job.id",
+			nvl(A.commission_pct,0)		as commissionPct,
+			A.hire_date					as hireDate
+		from
+			employees A, departments C <!-- A:사원 C:부서 -->
+		where
+			A.department_id = C.department_id(+)
+		order by
+			A.employee_id asc
+	</select>
+	
+	<!-- 지정된 부서에 소속된 사원정보 조회 -->
+	<select id="getEmployeeByDepartmentId" parameterClass="int" resultClass="Employee">
+		select
+			A.employee_id				as id,
+			A.first_name				as firstName,
+			A.last_name					as lastName,
+			A.phone_number				as phoneNumber,
+			A.salary					as salary,
+			A.email						as email,
+			C.department_name			as "department.name",
+			nvl(C.department_id,0)		as "department.id",
+			A.job_id					as "job.id",
+			nvl(A.commission_pct,0)		as commissionPct,
+			A.hire_date					as hireDate
+		from
+			employees A, departments C <!-- A:사원 C:부서 -->
+		where
+			A.department_id = C.department_id(+)
+		and
+			A.department_id = #value#
+	</select>
+	
+	<!-- 지정된 사원아이디에 해당하는 사원정보 조회 -->
+	<select id="getEmployeeById" parameterClass="int" resultClass="Employee">
+		select
+			A.employee_id				as id,
+			A.first_name				as firstName,
+			A.last_name					as lastName,
+			A.phone_number				as phoneNumber,
+			A.salary					as salary,
+			A.email						as email,
+			C.department_name			as "department.name",
+			nvl(C.department_id,0)		as "department.id",
+			B.job_id					as "job.id",
+			nvl(A.commission_pct,0)		as commissionPct,
+			A.hire_date					as hireDate,
+			B.job_title					as "job.title"
+		from
+			employees A,jobs B, departments C <!-- A:사원 C:부서 -->
+		where
+			A.department_id = C.department_id(+)
+		and	
+			A.job_id = B.job_id
+		and
+			A.employee_id = #value#
+	</select>
+	
+	<select id="getAllDepartmentsCount" parameterClass="int" resultClass="int">
+		select
+				nvl(count(*), 0)				as cnt
+		from
+			employees
+		where
+			department_id = #value#
+	</select>
+	
+	
+	
+	
+
+</sqlMap>

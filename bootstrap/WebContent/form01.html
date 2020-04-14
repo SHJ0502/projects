@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  	<title></title>
+  	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+	<h1>입력폼 연습</h1>
+	<p>
+		폼의 종류<br>
+			- 수직폼	: 라벨과 입력컨트롤이 상/하로 배치된다<br>
+			- 수평폼	: 라벨과 입력컨트롤이 수평으로 배치된다.<br>
+			- 인라인폼	: 내비바의 검색창, 로그인<br> 
+			<br>
+		폼을 정의하는 방식<br>
+			- 모든 라벨과 폼입력요소는 div.form-group로 감싼다.<br>
+			- 모든 폼입력(input, textarea, select)는 .form-control 클래스를 추가한다.<br>
+			- checkbox, radio는 div.checkbox나 div,radio로 감싸고,<br>
+			  label.checkbox-inline, label.radio-inline을 이용해서 정의한다.<br>
+	</p>
+	
+	<div class="row">
+		<div class="col-sm-6">
+			<h3>기본 폼</h3>
+			<p>
+				label과 입력요소가 각각 한 라인씩 표시되고,<br>
+				한 라인에 두개이상의 입력요소를 배치할 수 없다.
+			</p>
+			<form class="well" action="add.jsp" method="post">
+				<div class="form-group">
+					<label>Name</label>
+					<input type="text" class="form-control" name="username" />					
+				</div>
+				<div class="form-group">
+					<label>Email</label>
+					<input type="text" class="form-control" name="usermail" />
+				</div>
+				<div class="form-group">
+					<label>Location</label>
+					<select class="form-control" name="loc">
+						<option value="1000"> London</option>
+						<option value="1100"> Tokyo</option>
+						<option value="1200"> New York</option>
+						<option value="1300"> Seoul</option>
+					</select>					
+				</div>
+				<div class="form-group">
+					<label>Summary</label>
+					<textarea class="form-control" rows="5" name="summary"></textarea>
+				</div>
+				<div class="form-group">
+					<label>Skill</label>
+					<div>
+						<label class="checkbox-inline">
+							<input type="checkbox" value="JAVA"> java
+						</label>
+						<label class="checkbox-inline">
+							<input type="checkbox" value="JAVA"> java
+						</label>
+						<label class="checkbox-inline">
+							<input type="checkbox" value="JAVA"> java
+						</label>
+						<label class="checkbox-inline">
+							<input type="checkbox" value="JAVA"> java
+						</label>
+						<label class="checkbox-inline">
+							<input type="checkbox" value="JAVA"> java
+						</label>
+						
+					</div>
+				</div>
+				<div class="form-group">
+					<label>Agree</label>
+					<div>
+						<label class="radio-inline">
+							<input type="radio" value="Yes"> Yes
+						</label>
+						<label class="radio-inline">
+							<input type="radio" value="No"> No
+						</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<input type="submit" value="등록" class="btn btn-warning" />
+					<input type="reset" value="취소" class="btn btn-primary" />
+				</div>
+			</form>
+		</div>
+		<div class="col-sm-6">
+			<h3>수평폼</h3>
+			<p>
+				label과 입력요소를 수평으로 배치할 수 있다.<br>
+				form에 .form-horizontal를 클래스를 추가한다.
+				label에 .control-label 클래스를 추가한다.
+			</p>
+			<form class="form-horizontal well" action="" method="">
+				<div class="form-group">
+					<label class="control-label col-sm-2">주소</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" name="" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">이름</label>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" name="" />
+					</div>
+					<label class="control-label col-sm-2">이메일</label>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" name="" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">전화번호</label>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" name="" />
+					</div>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" name="" />
+					</div>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" name="" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">성별</label>
+					<div class="col-sm-4">
+						<label class="radio-inline">
+							<input type="radio" name="gender" value="Yes"> 남자
+						</label>
+						<label class="radio-inline">
+							<input type="radio" name="gender" value="No"> 여자
+						</label>
+					</div>
+					<label class="control-label col-sm-2">지역</label>
+					<div class="col-sm-4">
+						<select class="form-control" name="loc">
+							<option value="seoul">서울</option>
+							<option value="incheon">인천</option>
+							<option value="kyungki">경기</option>
+							<option value="kangwon">강원</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-10 col-sm-offset-2">
+						<button type="submit" class="btn btn-primary">등록</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-sm-6">
+			<h3>인라인 폼</h3>
+			<p>
+				인라인폼은 라벨과 입력요소가 전부 한줄에 표현된다.<br>
+				기본적으로 왼쪽 정렬되어서 표시된다.
+			</p>
+			<form class="form-inline" action="" method="">
+				<div class="form-group">
+					<select class="form-control" name="opt">
+						<option value="T"> 제목</option>
+						<option value="W"> 작성자</option>
+						<option value="C"> 내용</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" name="keyword" />
+				</div>
+				<button type="submit" class="btn btn-default">검색</button>
+			</form>
+		</div>
+	</div>
+</div>
+</body>
+</html>

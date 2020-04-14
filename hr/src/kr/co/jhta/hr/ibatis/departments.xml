@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="dept">
+
+	<insert id="insertDepartment" parameterClass="Department">
+		insert into
+			departments (department_id, department_name, manager_id, location_id)
+		values
+			(departments_seq.nextval, #name#, null, #location.id#)
+	</insert>
+
+	<select id="getAllDepartmentsWithManager" resultClass="Department">
+		select
+			A.department_id					as id,
+			A.department_name				as name,
+			B.first_name					as "manager.firstName",
+			B.last_name						as "manager.lastName",
+			nvl(A.manager_id, 0)			as "manager.id"
+			
+		from
+			departments A, employees B
+		where
+			A.manager_id = B.employee_id(+)
+		
+		order by
+			A.department_id asc
+	
+	</select>
+	
+	
+	<delete id="deleteDepartmentByid" parameterClass="int">
+		delete from departments
+		where
+			department_id = #value#
+	</delete>
+	
+	<select id="getDepartmentById" parameterClass="int" resultClass="Department">
+		select
+			department_id					as id,
+			department_name					as name,
+			location_id						as "location.id"
+		from
+			departments
+		where
+			 department_id = #value#
+	</select>
+	
+	<update id="updateDepartment" parameterClass="Department">
+		update 
+			departments 
+		set 
+			department_name = #name#,
+			location_id = #location.id#
+		where
+			department_id = #id#
+		
+	</update>
+
+</sqlMap>
+
+

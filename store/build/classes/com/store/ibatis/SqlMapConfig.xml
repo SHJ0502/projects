@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMapConfig      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+
+		<settings useStatementNamespaces="true" />
+	
+		<typeAlias alias="Book" type="com.store.vo.Book"/>
+		<typeAlias alias="CartItem" type="com.store.vo.CartItem"/>
+		<typeAlias alias="User" type="com.store.vo.User"/>
+	
+		<transactionManager type="JDBC"
+		commitRequired="false">
+		<!-- Connection Pool 구성 정보를 설정한다.  -->
+		<dataSource type="SIMPLE">
+			<property name="JDBC.Driver" value="oracle.jdbc.OracleDriver" />
+			<property name="JDBC.ConnectionURL" value="jdbc:oracle:thin:@localhost:1521:xe" />
+			<property name="JDBC.Username" value="hr" />
+			<property name="JDBC.Password" value="zxcv1234" />
+		</dataSource>
+	</transactionManager>
+
+	<!-- 객체와 SQL이 매핑된 메퍼파일을 등록한다. -->
+	<sqlMap resource="com/store/ibatis/users.xml" />
+	<sqlMap resource="com/store/ibatis/carts.xml" />
+	<sqlMap resource="com/store/ibatis/books.xml" />
+	
+</sqlMapConfig>

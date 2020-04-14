@@ -1,0 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<% 
+	 String id = (String)session.getAttribute("LOGINED_USER");
+
+	if(id == null){
+		StringBuffer url = request.getRequestURL();
+		response.sendRedirect("../../mypage/login_form.jsp?url="+url);
+	}
+%>

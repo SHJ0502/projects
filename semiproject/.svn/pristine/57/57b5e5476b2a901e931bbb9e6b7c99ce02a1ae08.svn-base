@@ -1,0 +1,11 @@
+package kr.pren.vo;
+
+import java.util.Date;
+
+public class Notice {
+
+	int no;
+	String title;
+	Long content;
+	Date date;
+}

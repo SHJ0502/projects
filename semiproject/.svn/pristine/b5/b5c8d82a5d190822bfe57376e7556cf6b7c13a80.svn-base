@@ -1,0 +1,94 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title></title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<style type="text/css">
+
+.mainimg {
+	width: 100%;
+}
+</style>
+</head>
+<body>
+	<%@ include file="../../common/nav.jsp"%>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<h3 class="text-center" style="margin-bottom: 20px;">주문하기</h3>
+			</div>
+		</div>
+		<form id="" class="well" action="" method="post" >
+			<div class="row">
+				<div class="col-sm-12">
+					<h3 class="text-left">상품정보</h3>
+					<div class="row">
+						<div class="col-sm-3">
+							<img alt="" class="mainimg" src="resources/images/profile/main_design.jpg" style="border: 1px solid red;">
+						</div>
+						<div class="col-sm-9 form-group">
+							<p class="label label-primary">블로그 /카페</p>
+							<h3>[블로그] 서로이웃 해 드립니다</h3>
+						</div>
+					</div>
+					<div class="form-group">
+						<h4 class="list-group-item-heading" style="margin-top: 15px; font-size: 25px;">
+							기본옵션 <span style="margin-left: 30px; font-size: 17px;">홍길동</span>
+						</h4>
+					</div>
+					<div class="col-md-12 form-group" style="padding-left: 0;">
+						<h4 class="list-group-item-heading" style="margin-top: 15px; font-size: 25px;">추가옵션</h4>
+						<div class="checkbox" style="width: 100%;">
+							<label title=""><input name="" type="checkbox" value="512">배송체험단 블로그 포스팅 1건<span style="float: right;">10,000 원</span>
+							</label>
+						</div>
+						<div class="checkbox" style="width: 100%;">
+							<label title=""><input type="checkbox" value="510">추가수정(1회이상)<span style="float: right;">1,000 원</span></label>
+						</div>
+						<hr />
+						<div class="row">
+							<div class="col-sm-12 text-right">
+								<p style="margin-top: -10px; font-size: 20px;">
+									총 금액 : <strong id="">0</strong> 원
+								</p>
+							</div>
+						</div>
+						<div class="box form-group">
+							<div class="box-title">주문서 작성</div>
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										<textarea name="sheet" rows="5" id="request" class="form-control"></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="box-title">결제 수단</div>
+							<div class="form-group">
+								<div class="radio" style="margin-right: 30px;">
+									<label title=""><input name="pay_method" type="radio" value="card" checked>무통장 입금</label>
+								</div>
+								<div class="radio" style="margin-right: 30px;">
+									<label title=""><input name="pay_method" type="radio" value="trans">계좌이체</label>
+								</div>
+								<div class="radio">
+									<label title=""><input name="pay_method" type="radio" value="phone">휴대폰 소액결제</label>
+								</div>
+							</div>
+						</div>
+						<button type="submit" class="btn btn-primary btn-block">주문하기</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<%@ include file="../../common/footer.jsp"%>
+</body>
+</html>

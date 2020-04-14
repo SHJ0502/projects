@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="users">
+	<insert id="insertUser" parameterClass="User">
+		insert into bookstore_users
+		(USER_NO, USER_ID, USER_PASSWORD, USER_NAME, USER_ENABLED, USER_IMAGE_FILENAME)
+		values
+		(bookstore_user_seq.nextval, #id#, #password#, #name#, #enabled#, #imageFilename#)
+	</insert>
+	
+	<select id="getUserById" parameterClass="String" resultClass="User">
+		select
+			USER_NO					as no,
+			USER_ID					as id,
+			USER_PASSWORD			as password,
+			USER_NAME				as name,
+			USER_POINT				as point,
+			USER_ENABLED			as enabled,
+			USER_CREATE_DATE		as createDate,
+			USER_IMAGE_FILENAME		as imageFilename,
+			USER_GRADE				as grade
+		from
+			bookstore_users
+		where
+			USER_ID = #value#
+	</select>
+	
+	<select id="getUserByNo" parameterClass="int" resultClass="User">
+		select
+			USER_NO					as no,
+			USER_ID					as id,
+			USER_PASSWORD			as password,
+			USER_NAME				as name,
+			USER_POINT				as point,
+			USER_ENABLED			as enabled,
+			USER_CREATE_DATE		as createDate,
+			USER_IMAGE_FILENAME		as imageFilename,
+			USER_GRADE				as grade
+		from
+			bookstore_users
+		where
+			USER_NO = #value#
+	</select>
+	
+	<update id="updateUser" parameterClass="User">
+		update
+			bookstore_users
+		set
+			user_password = #password#,
+			user_point = #point#,
+			user_enabled = #enabled#,
+			user_image_filename = #imageFilename#,
+			user_grade = #grade#
+		where
+			user_no = #no#
+	</update>
+
+</sqlMap>

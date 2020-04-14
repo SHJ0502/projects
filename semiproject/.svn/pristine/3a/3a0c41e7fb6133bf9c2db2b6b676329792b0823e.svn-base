@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="saleitems">
+	<!-- 상품등록 기능 -->
+	<insert id="insertSaleItem" parameterClass="SaleItem">
+		insert into SALE_ITEM_TABLES
+		(ITEM_NO, USER_NO, SUBCATE_NO, ITEM_TITLE, ITEM_CONTENTS, ITEM_PRICE, ITEM_LIKES, ITEM_STAR, ITEM_STATE,
+		ITEM_LOGO_IMG_NAME, ITME_SOLO, ITEM_UPLOAD_DATE, ITEM_CONTENTS_GUIDE, ITEM_CONTENTS_REFUND)
+		values
+		(SALE_ITEM_TABLE_seq.nextval, #userNo#, #subcategoryNo#, #title#, #content#, #price#, #likes#, #star#, #state#, 
+		#logoName#, #isSolo#)
+	</insert>
+	
+	
+</sqlMap>

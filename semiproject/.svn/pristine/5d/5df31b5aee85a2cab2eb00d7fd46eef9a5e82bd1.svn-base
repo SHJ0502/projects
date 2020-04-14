@@ -1,0 +1,14 @@
+<%@page import="kr.pren.dao.SteamDao"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	int productNo = Integer.parseInt(request.getParameter("productNo"));
+	int userNo = Integer.parseInt(request.getParameter("userNo"));
+	String path = request.getParameter("path");
+
+	SteamDao steamDao = SteamDao.getInstance();
+
+	steamDao.deleteSteam(userNo);
+
+	response.sendRedirect(path);
+%>

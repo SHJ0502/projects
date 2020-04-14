@@ -1,0 +1,15 @@
+package kr.pren.dao;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+
+import kr.pren.util.IbatisUtil;
+
+public class SubCategoryDao {
+	private static SubCategoryDao instance = new SubCategoryDao();
+	private SubCategoryDao() {}
+	public static  SubCategoryDao getInstance() {
+		return instance;
+	}
+	
+	private SqlMapClient sqlmap = IbatisUtil.getSqlmap();
+}

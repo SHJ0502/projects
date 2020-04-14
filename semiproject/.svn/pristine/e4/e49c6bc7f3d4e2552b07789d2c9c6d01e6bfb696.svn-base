@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="saleitems">
+	<insert id="insertSaleItem" parameterClass="SaleItem">
+		insert into SALE_ITEM_TABLES
+		(ITEM_NO, USER_NO, SUBCATE_NO, ITEM_TITLE, ITEM_CONTENTS, ITEM_PRICE, ITEM_LIKES, ITEM_STAR, ITEM_STATE,
+			 ITEM_LOGO_IMG_NAME, ITME_SOLO, ITEM_UPLOAD_DATE)
+		VALUES(SALE_ITEM_TABLE_seq.nextval, #userNo#)
+			
+	</insert>
+</sqlMap>
